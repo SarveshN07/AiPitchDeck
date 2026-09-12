@@ -1,6 +1,7 @@
 import {Agent} from "@openai/agents"
 
 import { PitchDeckSchema } from "../schemas/pitch-deck"
+import { pitchDeckQualityGuardrail, validProjectIdeaGuardrail } from "./guardrails";
 
 const PITCH_DECK_INSTRUCTIONS = `You write startup pitch decks for investors.
 
@@ -24,8 +25,8 @@ export const pitchDeckAgent = new Agent({
     name : "PitchDeckGenerator",
     model : "gpt-4o-mini",
     instructions : PITCH_DECK_INSTRUCTIONS,
-    outputType :PitchDeckSchema,
+    outputType :PitchDeckSchema as any,
     
-    inputGuardrails:[],
-    outputGuardrails:[]
+    inputGuardrails:[validProjectIdeaGuardrail],
+    outputGuardrails:[pitchDeckQualityGuardrail]
 })
