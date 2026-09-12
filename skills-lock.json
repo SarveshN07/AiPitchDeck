@@ -54,6 +54,18 @@
       "sourceType": "github",
       "skillPath": "prisma-upgrade-v7/SKILL.md",
       "computedHash": "dcc6c71adca6b22f37c5bda5ac7fd63c3bb59495596a22e06a29c7c85371558f"
+    },
+    "production-audit": {
+      "source": "affaan-m/ecc",
+      "sourceType": "github",
+      "skillPath": "skills/production-audit/SKILL.md",
+      "computedHash": "3c38cf12fdb504f6ce53fa9d33f4f0fff1aee3df8e96fbb4fdb76831b5fd51ce"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "d8e7d3afe37dcc8a97b99ffb5afdb4d0919ae0092ea8b68f44eb201f035e33ac"
     }
   }
 }

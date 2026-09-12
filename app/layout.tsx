@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { AuthSessionProvider } from "@/components/session-provider";
 
 const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
 
@@ -17,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pitch Deck AI",
-  description: "Generate professional pitch decks with AI",
+  title: "PitchPilot",
+  description: "Turn your ideas into compelling pitch decks with PitchPilot",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-white dark:bg-black text-black dark:text-white transition-colors">
         <ThemeProvider>
-          {children}
+          <AuthSessionProvider>{children}</AuthSessionProvider>
         </ThemeProvider>
       </body>
     </html>

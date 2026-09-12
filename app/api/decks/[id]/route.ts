@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { auth } from "@/auth";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    const ownerId = session?.user?.email;
+    if (!ownerId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
 
     const deck = await prisma.deck.findUnique({
-      where: { id },
+      where: { id, ownerId },
       include: {
         slides: {
           orderBy: {
@@ -41,11 +48,21 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    const ownerId = session?.user?.email;
+    if (!ownerId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
 
-    const deck = await prisma.deck.delete({
-      where: { id },
+    const deck = await prisma.deck.deleteMany({
+      where: { id, ownerId },
     });
+
+    if (deck.count === 0) {
+      return NextResponse.json({ error: "Deck not found" }, { status: 404 });
+    }
 
     return NextResponse.json(
       { message: "Deck deleted successfully" },

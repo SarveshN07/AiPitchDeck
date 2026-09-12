@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { DeckCard, DeckCardProps } from "@/components/deck-card";
 import { Spinner } from "@/components/ui/spinner";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { RiAiGenerate2Line as Sparkles, RiAddLine as Plus } from "@remixicon/react";
+import { AuthButtons } from "@/components/auth-buttons";
 
 export default function DecksPage() {
   const [decks, setDecks] = useState<DeckCardProps[]>([]);
@@ -44,40 +46,41 @@ export default function DecksPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors">
+    <main className="min-h-screen bg-[#f5f7f2] text-[#17211b] dark:bg-[#101510] dark:text-[#edf4ea]">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-black/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Sparkles className="h-6 w-6" />
-            <h1 className="text-xl font-bold">Pitch Deck AI</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Link href="/">
-              <Button className="gap-2 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700">
-                <Plus className="h-4 w-4" />
-                Create New
-              </Button>
+      <header className="sticky top-0 z-50 border-b border-[#17211b]/10 bg-[#f5f7f2]/90 backdrop-blur-sm dark:border-white/10 dark:bg-[#101510]/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
+          <Link href="/" className="flex items-center gap-3" aria-label="PitchPilot home">
+            <Image src="/logo.png" alt="PitchPilot logo" width={36} height={36} className="size-9 rounded-xl object-contain" priority />
+            <h1 className="font-semibold tracking-tight">PitchPilot</h1>
+          </Link>
+          <nav className="flex items-center gap-1" aria-label="Workspace navigation">
+            <Link href="/create" className="rounded-full px-4 py-2 text-sm font-semibold text-[#17211b]/65 hover:bg-[#17211b]/5 hover:text-[#17211b] dark:text-white/65 dark:hover:bg-white/10 dark:hover:text-white">
+              Create
             </Link>
+            <Link href="/decks" aria-current="page" className="rounded-full bg-[#17211b] px-4 py-2 text-sm font-semibold text-[#f5f7f2] dark:bg-[#d6f45f] dark:text-[#17211b]">
+              Your decks
+            </Link>
+            <AuthButtons />
             <ThemeToggle />
-          </div>
+          </nav>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-12">
+      <section className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
         <div className="space-y-8">
           {/* Page Title */}
           <div className="space-y-2">
             <h2 className="text-3xl font-bold">Your Pitch Decks</h2>
-            <p className="text-zinc-600 dark:text-zinc-400">
-              Manage and view all your generated pitch decks
+            <p className="text-[#17211b]/60 dark:text-white/60">
+              Manage and revisit every story you have built with PitchPilot.
             </p>
           </div>
 
           {/* Error State */}
           {error && !loading && (
-            <div className="p-4 bg-red-100 dark:bg-red-950 border border-red-300 dark:border-red-800 rounded text-red-700 dark:text-red-200">
+            <div role="alert" aria-live="polite" className="rounded-2xl border border-red-300 bg-red-50 p-4 text-red-700 dark:border-red-800 dark:bg-red-950/50 dark:text-red-200">
               {error}
             </div>
           )}
@@ -87,22 +90,21 @@ export default function DecksPage() {
             <div className="flex items-center justify-center py-20">
               <div className="flex flex-col items-center gap-3">
                 <Spinner className="h-8 w-8" />
-                <p className="text-zinc-600 dark:text-zinc-400">Loading decks...</p>
+                <p className="text-[#17211b]/60 dark:text-white/60">Loading decks…</p>
               </div>
             </div>
           ) : decks.length === 0 ? (
             /* Empty State */
-            <div className="flex flex-col items-center justify-center py-20 px-6 border-2 border-dashed border-zinc-300 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-950/50">
+            <div className="flex flex-col items-center justify-center rounded-[2rem] border border-dashed border-[#17211b]/20 bg-[#e8efe2] px-6 py-20 dark:border-white/15 dark:bg-[#182019]">
               <Sparkles className="h-12 w-12 text-zinc-400 dark:text-zinc-600 mb-4" />
-              <h3 className="text-xl font-semibold text-black dark:text-zinc-200 mb-2">
+              <h3 className="mb-2 text-xl font-semibold text-[#17211b] dark:text-white">
                 No pitch decks yet
               </h3>
-              <p className="text-zinc-600 dark:text-zinc-400 text-center max-w-sm mb-6">
-                Get started by creating your first pitch deck. It only takes a
-                few seconds!
+              <p className="mb-6 max-w-sm text-center text-[#17211b]/60 dark:text-white/60">
+                Start with a thought and turn it into a confident presentation.
               </p>
-              <Link href="/">
-                <Button className="gap-2 bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-600 dark:hover:bg-blue-700">
+              <Link href="/create">
+                <Button className="gap-2 rounded-full bg-[#17211b] text-[#f5f7f2] hover:bg-[#31473a] dark:bg-[#d6f45f] dark:text-[#17211b] dark:hover:bg-[#c1df50]">
                   <Plus className="h-4 w-4" />
                   Create Your First Deck
                 </Button>
@@ -112,15 +114,15 @@ export default function DecksPage() {
             /* Decks Grid */
             <>
               <div className="flex items-center justify-between">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Total decks: <span className="font-semibold">{decks.length}</span>
+                  <p className="text-sm text-[#17211b]/60 dark:text-white/60">
+                  Total decks: <span className="font-semibold text-[#17211b] dark:text-white">{decks.length}</span>
                 </p>
                 <button
                   onClick={handleRefresh}
                   disabled={refreshing}
-                  className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white disabled:opacity-50 transition-colors"
+                  className="rounded-full px-3 py-2 text-sm text-[#17211b]/60 transition-colors hover:bg-[#17211b]/5 hover:text-[#17211b] disabled:opacity-50 dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
                 >
-                  {refreshing ? "Refreshing..." : "Refresh"}
+                  {refreshing ? "Refreshing…" : "Refresh"}
                 </button>
               </div>
 
@@ -142,7 +144,7 @@ export default function DecksPage() {
             </>
           )}
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -33,14 +33,10 @@ export function DeckCard({
   slideCount,
 }: DeckCardProps) {
   const config = statusConfig[status];
-  const isCompleted = status === "COMPLETED";
-
   return (
-    <Link href={isCompleted ? `/deck/${id}` : "#"}>
+    <Link href={`/deck/${id}`} aria-label={`Open ${title || "untitled"} deck`}>
       <Card
-        className={`p-6 border-zinc-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer group ${
-          !isCompleted ? "opacity-75" : ""
-        }`}
+        className="group cursor-pointer border-zinc-300 bg-white p-6 transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800"
       >
         <div className="space-y-3">
           <div className="flex items-start justify-between gap-2">
@@ -52,9 +48,7 @@ export function DeckCard({
                 {idea}
               </p>
             </div>
-            {isCompleted && (
-              <ChevronRight className="h-5 w-5 text-zinc-500 group-hover:text-zinc-300 dark:text-zinc-500 dark:group-hover:text-zinc-300 transition-colors shrink-0" />
-            )}
+            <ChevronRight className="h-5 w-5 shrink-0 text-zinc-500 transition-colors group-hover:text-zinc-300 dark:text-zinc-500 dark:group-hover:text-zinc-300" />
           </div>
 
           <div className="flex items-center justify-between pt-2 border-t border-zinc-300 dark:border-zinc-800">

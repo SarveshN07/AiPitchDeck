@@ -2,6 +2,18 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Authentication
+
+Authentication uses Auth.js with Google OAuth. Add these variables to `.env`:
+
+```env
+AUTH_SECRET="replace-with-a-long-random-secret"
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
+
+In Google Cloud Console, add `http://localhost:3000/api/auth/callback/google` as an authorized redirect URI. For production, add the matching HTTPS callback URL for your deployed domain.
+
 First, run the development server:
 
 ```bash
