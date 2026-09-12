@@ -1,7 +1,7 @@
 import OpenAI from "openai"
 
 const IMAGE_MODEL = "gpt-image-1-mini";
-const IMAGE_SIZE = "1024x1024"
+const IMAGE_SIZE = "1536x1024";
 
 let openaiClient: OpenAI | null = null;
 
@@ -23,7 +23,7 @@ function getOpenAIClient(): OpenAI {
 
 
 async function fetchPlaceholderImage(): Promise<Buffer> {
-  const response = await fetch("https://picsum.photos/1024/1024");
+  const response = await fetch("https://picsum.photos/1536/1024");
 
   if (!response.ok) {
     throw new Error("Could not download placeholder image");

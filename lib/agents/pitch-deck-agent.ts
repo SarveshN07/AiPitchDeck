@@ -16,7 +16,7 @@ Given a project idea, create 6–7 slides in this order:
 
 Field rules:
 - content: 2–4 bullet points as plain text, each starting with "• "
-- imagePrompt: a short description for a professional slide illustration (no text in the image, clean and modern style)
+- imagePrompt: a short description for a professional wide landscape slide illustration (no text in the image, clean and modern style, composed for a 3:2 presentation canvas)
 - Keep language clear, confident, and investor-friendly
 - Do not use placeholder filler like "TBD" or "lorem ipsum"`;
 
